@@ -29,6 +29,9 @@ void set_color(int text_color) {
  * Функции с побитовыми операциями.
  */
 
+// -128..127
+// 0..255
+
 static string get_byte(const unsigned char *p) {
     unsigned char mask = 0x80;
 
@@ -60,7 +63,7 @@ template<typename T>
 static void set_at_position(T &number, int pos, bool x) {
     unsigned long long mask = 0x80;
     for (int i = 0; i < sizeof(number) - 1; i++)
-        mask *= 0x100; // 256
+        mask *= 0x100;
 
     number ^= (-x ^ number) & (mask >> (pos - 1));
 }
@@ -114,7 +117,7 @@ void input_bit_num() {
     set_color(11);
     printf("\nВведите номер бита:\n");
 
-    set_color(6);
+    set_color(10);
     printf("> ");
     set_color(7);
 
@@ -127,6 +130,7 @@ void input_bit_num() {
 }
 
 int main() {
+    SetConsoleOutputCP(CP_UTF8);
     start:
     n = 0;
     set_color(11);
@@ -140,7 +144,7 @@ int main() {
 
     n = 5;
     do {
-        set_color(6);
+        set_color(10);
         printf("> ");
         set_color(7);
         scanf("%d", &n);
@@ -165,8 +169,8 @@ int main() {
 
             a = 0;
 
-            set_color(6);
-            printf("> ");
+            set_color(10);
+        printf("> ");
             set_color(7);
             scanf("%hd", &a);
             printf("\n");
@@ -176,6 +180,7 @@ int main() {
                 printf("Текущее оперируемое число: ");
                 set_color(7);
                 printf("%d\n", a);
+                printf("Внутреннее представление -> %s\n", internal(a).c_str());
 
                 set_color(11);
                 printf("Выберите одно из действий:\n");
@@ -188,7 +193,7 @@ int main() {
 
                 n = 5;
                 do {
-                    set_color(6);
+                    set_color(10);
                     printf("> ");
                     set_color(7);
                     scanf("%d", &n);
@@ -221,9 +226,9 @@ int main() {
                         break;
 
                     case 4:
-                        printf("\nДополнительный код -> %s\n", internal(a).c_str());
+                        printf("Прямой код -> %s\n", straight(a).c_str());
                         printf("Обратный код -> %s\n", reversed(a).c_str());
-                        printf("Прямой код -> %s\n\n", straight(a).c_str());
+                        printf("Дополнительный код -> %s\n\n", internal(a).c_str());
                         break;
 
                     default:
@@ -243,7 +248,7 @@ int main() {
 
             n = 5;
             do {
-                set_color(6);
+                set_color(10);
                 printf("> ");
                 set_color(7);
                 scanf("%d", &n);
@@ -262,14 +267,15 @@ int main() {
 
                     a = 0;
 
-                    set_color(6);
+                    set_color(10);
                     printf("> ");
                     set_color(7);
                     scanf("%hd", &a);
 
-                    printf("\nВнутреннее представление -> %s\n", internal(a).c_str());
+                    printf("\nDUMP -> %s\n", internal(a).c_str());
+                    printf("Прямой код -> %s\n", straight(a).c_str());
                     printf("Обратный код -> %s\n", reversed(a).c_str());
-                    printf("Прямой код -> %s\n\n", straight(a).c_str());
+                    printf("Дополнительный код -> %s\n\n", internal(a).c_str());
 
                     goto start;
                 case 2:
@@ -280,14 +286,15 @@ int main() {
 
                     b = 0;
 
-                    set_color(6);
+                    set_color(10);
                     printf("> ");
                     set_color(7);
                     scanf("%d", &b);
 
-                    printf("\nВнутреннее представление -> %s\n", internal(b).c_str());
+                    printf("\nDUMP -> %s\n", internal(b).c_str());
+                    printf("Прямой код -> %s\n", straight(b).c_str());
                     printf("Обратный код -> %s\n", reversed(b).c_str());
-                    printf("Прямой код -> %s\n\n", straight(b).c_str());
+                    printf("Дополнительный код -> %s\n\n", internal(b).c_str());
 
                     goto start;
 
@@ -299,14 +306,15 @@ int main() {
 
                     c = 0;
 
-                    set_color(6);
+                    set_color(10);
                     printf("> ");
                     set_color(7);
                     scanf("%ld", &c);
 
-                    printf("\nВнутреннее представление -> %s\n", internal(c).c_str());
+                    printf("\nDUMP -> %s\n", internal(c).c_str());
+                    printf("Прямой код -> %s\n", straight(c).c_str());
                     printf("Обратный код -> %s\n", reversed(c).c_str());
-                    printf("Прямой код -> %s\n\n", straight(c).c_str());
+                    printf("Дополнительный код -> %s\n\n", internal(c).c_str());
 
                     goto start;
 
@@ -318,14 +326,15 @@ int main() {
 
                     d = 0;
 
-                    set_color(6);
+                    set_color(10);
                     printf("> ");
                     set_color(7);
                     scanf("%lld", &d);
 
-                    printf("\nВнутреннее представление -> %s\n", internal(d).c_str());
+                    printf("\nDUMP -> %s\n", internal(d).c_str());
+                    printf("Прямой код -> %s\n", straight(d).c_str());
                     printf("Обратный код -> %s\n", reversed(d).c_str());
-                    printf("Прямой код -> %s\n\n", straight(d).c_str());
+                    printf("Дополнительный код -> %s\n\n", internal(d).c_str());
 
                     goto start;
                 default:
@@ -343,7 +352,7 @@ int main() {
 
             n = 3;
             do {
-                set_color(6);
+                set_color(10);
                 printf("> ");
                 set_color(7);
                 scanf("%d", &n);
@@ -362,7 +371,7 @@ int main() {
 
                     e = 0;
 
-                    set_color(6);
+                    set_color(10);
                     printf("> ");
                     set_color(7);
                     scanf("%f", &e);
@@ -378,7 +387,7 @@ int main() {
 
                     f = 0;
 
-                    set_color(6);
+                    set_color(10);
                     printf("> ");
                     set_color(7);
                     scanf("%f", &f);
