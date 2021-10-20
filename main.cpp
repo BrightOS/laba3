@@ -29,9 +29,6 @@ void set_color(int text_color) {
  * Функции с побитовыми операциями.
  */
 
-// -128..127
-// 0..255
-
 static string get_byte(const unsigned char *p) {
     unsigned char mask = 0x80;
 
@@ -170,7 +167,7 @@ int main() {
             a = 0;
 
             set_color(10);
-        printf("> ");
+            printf("> ");
             set_color(7);
             scanf("%hd", &a);
             printf("\n");
@@ -369,22 +366,6 @@ int main() {
                     set_color(11);
                     printf("Введите оперируемое число:\n");
 
-                    e = 0;
-
-                    set_color(10);
-                    printf("> ");
-                    set_color(7);
-                    scanf("%f", &e);
-
-                    printf("\nВнутреннее представление -> %s\n\n", internal(e).c_str());
-
-                    goto start;
-                case 2:
-                    printf("double.\n\n");
-
-                    set_color(11);
-                    printf("Введите оперируемое число:\n");
-
                     f = 0;
 
                     set_color(10);
@@ -395,6 +376,22 @@ int main() {
                     printf("\nВнутреннее представление -> %s\n\n", internal(f).c_str());
 
                     goto start;
+                case 2:
+                    printf("double.\n\n");
+
+                    set_color(11);
+                    printf("Введите оперируемое число:\n");
+
+                    e = 0;
+
+                    set_color(10);
+                    printf("> ");
+                    set_color(7);
+                    scanf("%f", &e);
+
+                    printf("\nВнутреннее представление -> %s\n\n", internal(e).c_str());
+
+                    goto start;
                 default:
                     break;
             }
@@ -402,8 +399,7 @@ int main() {
         case 4:
             printf("Решето Эратосфена.\n\n");
 
-            n = 1000000;
-            k = 0;
+            n = 10000000;
 
             ofstream fout("simple.txt");
 
@@ -411,15 +407,15 @@ int main() {
                 list.push_back(0xFF); // Каждый байт заполняем единицами
 
             for (int i = 2; i <= n; i++) {
+
+                if (i % 100 == 0)
+                    fout << "\n";
+
                 if (list[i / 8] & (0x80 >> i % 8)) {
                     fout << i << " ";
 
-                    k++;
-                    if (k % 100 == 0)
-                        fout << "\n";
-
                     for (int j = 2 * i; j <= n; j += i)
-                        list[j / 8] &= ~0x80 >> j % 8;
+                        list[j / 8] &= ~(0x80 >> (j % 8));
                 }
             }
 
